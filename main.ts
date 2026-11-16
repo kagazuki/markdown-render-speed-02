@@ -5,12 +5,15 @@ import { parse } from './parse.js';
 const INPUT_DIR = process.env.MAKEFUN_INPUT_DIR ?? '/input';
 const OUTPUT_DIR = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 
-const cases = JSON.parse(readFileSync(join(INPUT_DIR, 'cases.json'), 'utf8')) as { id: string; markdown: string }[];
-const len = cases.length;
-const html = new Array(len);
+interface Case {
+  id: string;
+  markdown: string;
+}
 
-// Single-pass high-throughput execution
-for (let i = 0; i < len; i++) {
+const cases: Case[] = JSON.parse(readFileSync(join(INPUT_DIR, 'cases.json'), 'utf8'));
+
+const html: string[] = new Array(cases.length);
+for (let i = 0; i < cases.length; i++) {
   html[i] = parse(cases[i].markdown);
 }
 
