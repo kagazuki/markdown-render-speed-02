@@ -3,6 +3,7 @@ import { marked } from './vendor/marked/marked.esm.js';
 const lexer = new marked.Lexer();
 const parser = new marked.Parser();
 
+// Fast single-pass marked parser reusing static instances
 export function parse(markdown) {
   lexer.tokens = [];
   lexer.tokens.links = Object.create(null);
